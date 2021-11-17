@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-
+RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 # Install dependencies
 RUN apt-get update && \
  apt-get -y install apache2
