@@ -18,7 +18,9 @@ podTemplate(label: 'docker-build',
   ]
 ) {
     node('docker-build') {
-                
+	def appImage         
+
+       
         stage('Checkout'){
             container('git'){
                 checkout scm
@@ -29,6 +31,17 @@ podTemplate(label: 'docker-build',
             container('docker'){
                 script {
                     appImage = docker.build("873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr")
+                }
+            }
+        }
+	
+	 stage('Test'){
+            container('docker'){
+                script {
+                    appImage.inside {
+                        sh 'npm install'
+                        sh 'npm test'
+                    }
                 }
             }
         }
