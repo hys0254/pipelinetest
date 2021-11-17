@@ -1,8 +1,9 @@
 FROM ubuntu:18.04
 RUN ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 # Install dependencies
-RUN apt-get update && \
- apt-get -y install apache2
+RUN apt upgrade -y
+RUN apt-get update -y
+RUN apt-get -y install apache2
 
 # Install apache and write hello world message
 RUN echo 'Hello World!' > /var/www/html/index.html
