@@ -1,19 +1,48 @@
-node {
-     stage('Clone repository') {
-         checkout scm
-     }
-
-     stage('Build image') {
-         app = docker.build("873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr")
-     }
-
-     stage('Push image') {
-         sh 'rm  ~/.dockercfg || true'
-         sh 'rm ~/.docker/config.json || true'
-         
-         docker.withRegistry('https://873563726923.dkr.ecr.ap-northeast-2.amazonaws.com','ecr:ap-northeast-2:team4test) {
-             app.push("${env.BUILD_NUMBER}")
-             app.push("latest")
-     }
-  }
+podTemplate(label: 'docker-build', 
+  containers: [
+    containerTemplate(
+      name: 'git',
+      image: 'alpine/git',
+      command: 'cat',
+      ttyEnabled: true
+    ),
+    containerTemplate(
+      name: 'docker',
+      image: 'docker',
+      command: 'cat',
+      ttyEnabled: true
+    ),
+  ],
+  volumes: [ 
+    hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'), 
+  ]
+) {
+    node('docker-build') {
+                
+        stage('Checkout'){
+            container('git'){
+                checkout scm
+            }
+        }
+        
+        stage('Build'){
+            container('docker'){
+                script {
+                    appImage = docker.build("873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr")
+                }
+            }
+        }
+        
+        stage('Push'){
+            container('docker'){
+                script {
+                    docker.withRegistry('https://873563726923.dkr.ecr.ap-northeast-2.amazonaws.com','ecr:ap-northeast-2:team4test'){
+                        appImage.push("${env.BUILD_NUMBER}")
+                        appImage.push("latest")
+                    }
+                }
+            }
+        }
+    }
+    
 }
