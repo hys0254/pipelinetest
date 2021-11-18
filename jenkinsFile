@@ -27,12 +27,15 @@ podTemplate(label: 'docker-build',
             }
         }
         
-        stage('Build'){
-            container('docker'){
-                script {
-                    app = docker.build("873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr")
+        stage('Build'){ 
+	
+	steps {
+                container('docker') {
+                    sh "docker build --network host -t test ."
+                    sh "docker images"
                 }
             }
+
         }
         
         stage('Push'){

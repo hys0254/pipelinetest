@@ -18,7 +18,9 @@ podTemplate(label: 'docker-build',
   ]
 ) {
     node('docker-build') {
-                
+	         
+
+       
         stage('Checkout'){
             container('git'){
                 checkout scm
@@ -28,7 +30,7 @@ podTemplate(label: 'docker-build',
         stage('Build'){
             container('docker'){
                 script {
-                    appImage = docker.build("873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr")
+                    app = docker.build("873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr")
                 }
             }
         }
@@ -37,8 +39,8 @@ podTemplate(label: 'docker-build',
             container('docker'){
                 script {
                     docker.withRegistry('https://873563726923.dkr.ecr.ap-northeast-2.amazonaws.com','ecr:ap-northeast-2:team4test'){
-                        appImage.push("${env.BUILD_NUMBER}")
-                        appImage.push("latest")
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
                     }
                 }
             }
