@@ -30,7 +30,7 @@ podTemplate(label: 'docker-build',
         stage('Build'){
             container('docker'){
                 script {
-                    appImage = docker.build("873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr",".","--network host")
+                    appImage = docker.build("873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr",".","--network host -f Dockerfile .")
                 }
             }
         }
