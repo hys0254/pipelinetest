@@ -29,12 +29,12 @@ podTemplate(label: 'docker-build',
         
         stage('Build'){ 
 	
-	steps {
+
                 container('docker') {
                     sh "docker build --network host -t test ."
                     sh "docker images"
                 }
-            }
+            
 
         }
         
