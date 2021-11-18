@@ -18,7 +18,7 @@ podTemplate(label: 'docker-build',
   ]
 ) {
     node('docker-build') {
-	         
+	def appImage 
 
        
         stage('Checkout'){
@@ -30,7 +30,7 @@ podTemplate(label: 'docker-build',
         stage('Build'){
             container('docker'){
                 script {
-                    app = docker.build("873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr","--network host")
+                    appImage = docker.build("--network host","873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr")
                 }
             }
         }
@@ -39,8 +39,8 @@ podTemplate(label: 'docker-build',
             container('docker'){
                 script {
                     docker.withRegistry('https://873563726923.dkr.ecr.ap-northeast-2.amazonaws.com','ecr:ap-northeast-2:team4test'){
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
+                        appImage.push("${env.BUILD_NUMBER}")
+                        appImage.push("latest")
                     }
                 }
             }
