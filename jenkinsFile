@@ -36,18 +36,6 @@ podTemplate(label: 'docker-build',
 	stage('Build Maven'){
 	    container('maven'){
 		sh 'mvn -B clean install'
-		sh 'pwd'
-		sh 'ls'
-		sh 'cd webapp'
-		sh 'ls'
-		sh 'cd webapp'
-		sh 'ls'
-		sh 'cd webapp'
-                sh 'ls'
-		sh 'cd webapp'
-                sh 'ls'
-		sh 'cd webapp'
-                sh 'ls webapp/target'
 	    }
 	}
 
