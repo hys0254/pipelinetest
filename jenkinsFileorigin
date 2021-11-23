@@ -12,12 +12,6 @@ podTemplate(label: 'docker-build',
       command: 'cat',
       ttyEnabled: true
     ),
-    containerTemplate(
-      name: 'maven', 
-      image: 'maven:3.3.9-jdk-8-alpine', 
-      ttyEnabled: true,  
-      command: 'cat'
-    )
   ],
   volumes: [ 
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'), 
@@ -30,18 +24,6 @@ podTemplate(label: 'docker-build',
         stage('Checkout'){
             container('git'){
                 checkout scm
-            }
-        }
-	
-	stage('Build Maven'){
-	    container('maven'){
-		sh 'mvn -B clean install'
-	    }
-	}
-
-	stage('test'){
-		stpes {
-                pwd
             }
         }
         
