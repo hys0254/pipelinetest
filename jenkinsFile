@@ -39,11 +39,6 @@ podTemplate(label: 'docker-build',
 	    }
 	}
 
-	stage('test'){
-		stpes {
-                pwd
-            }
-        }
         
         stage('Build'){
             container('docker'){
