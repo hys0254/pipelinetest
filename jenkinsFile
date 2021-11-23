@@ -37,6 +37,7 @@ podTemplate(label: 'docker-build',
 	    container('maven'){
 		sh 'mvn -B clean install'
 		sh 'pwd'
+		sh 'ls'
 	    }
 	}
 
