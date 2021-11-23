@@ -48,7 +48,7 @@ podTemplate(label: 'docker-build',
                 sh 'ls'
 		sh 'cd webapp'
                 sh 'ls'
-		sh 'cd webapp'
+		sh 'sudo cd webapp'
                 sh 'ls'
 	    }
 	}
