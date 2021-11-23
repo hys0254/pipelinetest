@@ -38,6 +38,10 @@ podTemplate(label: 'docker-build',
 		sh 'mvn -B clean install'
 		sh 'pwd'
 		sh 'ls'
+		sh 'cd webapp'
+		sh 'ls'
+		sh 'cd target'
+		sh 'ls'
 	    }
 	}
 
