@@ -1,0 +1,7 @@
+- name: Create & Update Deployments and Service Object for Kubernetes
+  hosts: kube_host
+  gather_facts: no
+
+  tasks:
+  - name: Create & Update Deployments and Service Object for Kubernetes
+    command: kubectl apply -f .
