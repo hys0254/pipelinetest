@@ -47,7 +47,7 @@ podTemplate(label: 'docker-build',
 		sh 'cd webapp'
                 sh 'ls'
 		sh 'cd webapp'
-                sh 'ls webapp/'
+                sh 'ls webapp/target'
 	    }
 	}
 
