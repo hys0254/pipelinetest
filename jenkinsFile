@@ -74,10 +74,11 @@ podTemplate(label: 'docker-build',
     
   	stage('Update image tag') {
   	    
-        sshagent(credentials:['kube-jenkins']) {
-                
+        withCredentials([usernamePassword(credentialsId: 'accessgit',
+            usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PWD')]) {
 
-            def gitUrl = "https://github.com/hys0254/gitops_kustomize.git"
+            def encodedPassword = URLEncoder.encode("$GIT_PWD",'UTF-8')
+            def gitUrl = "https://$GIT_USER:$encodedPassword@https://github.com/hys0254/gitops_kustomize.git"
             def registry = "873563726923.dkr.ecr.ap-northeast-2.amazonaws.com"
             
             dir("user-api") {
