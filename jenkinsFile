@@ -63,7 +63,7 @@ podTemplate(label: 'docker-build',
         }
 
 	stage('Src Checkout') {
-		git branch: 'main',
+		git branch: 'master',
 		credentialsId: 'jenkins',
 		url: 'https://github.com/hys0254/gitops_kustomize.git'
 	}
