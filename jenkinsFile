@@ -93,7 +93,7 @@ podTemplate(label: 'docker-build',
                         set +x
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
                         git config --global user.email "hys0254@naver.com"
-                        git checkout main
+                        git checkout master
                         cd dev && kustomize edit set image user-api=$registry/tea4testecr:${env.BUILD_NUMBER}
                         git commit -a -m "updated the image tag"
                         git push
