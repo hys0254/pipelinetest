@@ -78,7 +78,7 @@ podTemplate(label: 'docker-build',
             usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PWD')]) {
 
             def encodedPassword = URLEncoder.encode("$GIT_PWD",'UTF-8')
-            def gitUrl = "https://$GIT_USER:$encodedPassword@https://github.com/hys0254/gitops_kustomize.git"
+            def gitUrl = "https://$GIT_USER:$encodedPassword@github.com/hys0254/gitops_kustomize.git"
             def registry = "873563726923.dkr.ecr.ap-northeast-2.amazonaws.com"
             
             dir("user-api") {
