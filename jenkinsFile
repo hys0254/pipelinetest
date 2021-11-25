@@ -92,6 +92,7 @@ podTemplate(label: 'docker-build',
         }
     }
 }
+}
 @NonCPS
 def getLatestBuildNumber() {
     def jobname = "dev-user-api-build"
