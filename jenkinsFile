@@ -101,8 +101,4 @@ def getLatestBuildNumber() {
     def jobname = "dockerbuild"
     def job = Jenkins.instance.getItemByFullName(jobname)
     job.getLastBuild().getNumber()	
-
-
-    
-    
 }
