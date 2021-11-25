@@ -78,30 +78,29 @@ podTemplate(label: 'docker-build',
 	
     
     
-	stage('Deploy'){
-            container('argo'){
-                checkout([$class: 'GitSCM',
-                        branches: [[name: '*/main' ]],
-                        extensions: scm.extensions,
-                        userRemoteConfigs: [[
-                            url: 'git@github.com:hys0254/gitops_kustomize.git',
-                            credentialsId: 'kube-jenkins',
-                        ]]
-                ])
-                sshagent(credentials: ['kube-jenkins']){
-                    sh("""
+	stage('Update image tag') {
+
+        withCredentials([usernamePassword(credentialsId: 'accessgit',
+            usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PWD')]) {
+
+            def encodedPassword = URLEncoder.encode("$GIT_PWD",'UTF-8')
+            def gitUrl = "https://$GIT_USER:$encodedPassword@github.com/hys0254/gitops_kustomize.git"
+            def registry = "873563726923.dkr.ecr.ap-northeast-2.amazonaws.com"
+
+            dir("user-api") {
+		sh("""
                         #!/usr/bin/env bash
                         set +x
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
                         git config --global user.email "hys0254@naver.com"
                         git checkout main
-                        cd /dev && kustomize edit set image user-api=873563726923.dkr.ecr.ap-northeast-2.amazonaws.com/tea4testecr:${env.BUILD_NUMBER}
+                        cd dev && kustomize edit set image user-api=$registry/tea4testecr:${env.BUILD_NUMBER}
                         git commit -a -m "updated the image tag"
                         git push
                     """)
-                }
             }
         }
+    }
 }
 }
 
