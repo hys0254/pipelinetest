@@ -97,7 +97,7 @@ podTemplate(label: 'docker-build',
 			sed -i 's/tea4testecr:latest/tea4testecr:${BUILD_NUMBER}/' deployment.yaml
 			git add .
                         git commit -a -m "updated the image tag"
-                        git push
+                        git push https://$GIT_USER:$encodedPassword@github.com/hys0254/gitops_kustomize.git
                     """)
             }
         }
