@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 podTemplate(label: 'docker-build', 
   containers: [
     containerTemplate(
@@ -93,9 +95,10 @@ podTemplate(label: 'docker-build',
     }
 }
 }
+
 @NonCPS
 def getLatestBuildNumber() {
-    def jobname = "dev-user-api-build"
+    def jobname = "dockerbuild"
     def job = Jenkins.instance.getItemByFullName(jobname)
     job.getLastBuild().getNumber()	
 
