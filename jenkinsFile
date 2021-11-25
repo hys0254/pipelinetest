@@ -74,7 +74,7 @@ podTemplate(label: 'docker-build',
     
   	stage('Update image tag') {
   	    
-        withCredentials([usernamePassword(credentialsId: 'jenkins', 
+        withCredentials([usernamePassword(credentialsId: 'kube-jenkins', 
             usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PWD')]) {
                 
             def encodedPassword = URLEncoder.encode("$GIT_PWD",'UTF-8')
