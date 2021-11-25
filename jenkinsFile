@@ -94,7 +94,6 @@ podTemplate(label: 'docker-build',
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
                         git config --global user.email "hys0254@naver.com"
                         git checkout master
-			ls
 			sed -i 's/tea4testecr:latest/tea4testecr:${BUILD_NUMBER}/' deployment.yaml
 			git add .
                         git commit -a -m "updated the image tag"
