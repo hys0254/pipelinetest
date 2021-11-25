@@ -94,10 +94,8 @@ podTemplate(label: 'docker-build',
                         export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
                         git config --global user.email "hys0254@naver.com"
                         git checkout master
-			curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh" | bash
-			mv kustomize /usr/local/bin/
-			kustomize version
-                        cd dev && kustomize edit set image user-api=$registry/tea4testecr:${env.BUILD_NUMBER}
+			sed -i 's/tea4testecr:latest/tea4testecr:${BUILD_NUMBER}/' deployment.yaml
+			git add .
                         git commit -a -m "updated the image tag"
                         git push
                     """)
