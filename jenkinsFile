@@ -84,7 +84,10 @@ podTemplate(label: 'docker-build',
             dir("user-api") {
               sh "git pull $gitUrl"
               sh """
-                    cd ./dev && ~/kustomize edit set image \
+                    echo "cd"
+		    pwd
+                    ls
+		    cd ./dev && ~/kustomize edit set image \
                     user-api=$registry/tea4testecr:${env.BUILD_NUMBER} \
                 """
               sh "git add -A"
